@@ -28,7 +28,7 @@ public class LionParametrizedTest {
     public void lionMaleSexTest(){
         try {
             Lion lion = new Lion(sex);
-            Assert.assertEquals(hasMane, lion.hasMane);
+            Assert.assertEquals(hasMane, lion.doesHaveMane());
             System.out.println("Выбран пол - " + sex);
             System.out.println("Наличие гривы = " + lion.doesHaveMane());
         } catch (Exception e) {
