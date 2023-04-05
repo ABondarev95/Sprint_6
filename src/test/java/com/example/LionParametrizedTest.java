@@ -4,11 +4,13 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
+import org.mockito.Mockito;
 
 @RunWith(Parameterized.class)
 public class LionParametrizedTest {
     private final String sex;
     private final boolean hasMane;
+    Feline feline = Mockito.mock(Feline.class);
 
     public LionParametrizedTest(String sex, boolean hasMane){
         this.sex = sex;
@@ -20,19 +22,14 @@ public class LionParametrizedTest {
         return new Object[][] {
                 {"Самец", true},
                 {"Самка", false},
-                {"Тест", false},
         };
     }
 
     @Test
-    public void lionMaleSexTest(){
-        try {
-            Lion lion = new Lion(sex);
+    public void doesHaveManeTest() throws Exception {
+            Lion lion = new Lion(sex, feline);
             Assert.assertEquals(hasMane, lion.doesHaveMane());
-            System.out.println("Выбран пол - " + sex);
-            System.out.println("Наличие гривы = " + lion.doesHaveMane());
-        } catch (Exception e) {
-            Assert.assertEquals("Используйте допустимые значения пола животного - самец или самка", e.getMessage());
-        }
+            System.out.println("Указан пол - " + sex);
+            System.out.println("Наличие гривы - " + hasMane);
     }
 }

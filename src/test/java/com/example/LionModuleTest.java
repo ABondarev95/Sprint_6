@@ -6,6 +6,8 @@ import org.junit.runner.RunWith;
 import org.mockito.Spy;
 import org.mockito.junit.MockitoJUnitRunner;
 import java.util.List;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThrows;
 
 
 @RunWith(MockitoJUnitRunner.class)
@@ -14,18 +16,20 @@ public class LionModuleTest {
     Feline feline;
 
     @Test
-    public void getKittensTest(){
-        Lion lion = new Lion(feline);
+    public void getKittensTest() throws Exception {
+        Lion lion = new Lion("Самка",feline);
         Assert.assertEquals(1, lion.getKittens());
     }
 
     @Test
-    public void getFood() {
-        Lion lion = new Lion(feline);
-        try {
-            Assert.assertEquals(List.of("Животные", "Птицы", "Рыба"),lion.getFood());
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+    public void getLionFoodTest() throws Exception {
+        Lion lion = new Lion("Самка",feline);
+        Assert.assertEquals(List.of("Животные", "Птицы", "Рыба"),lion.getFood());
+    }
+
+    @Test
+    public void anotherSexOfLionTest() {
+        Exception e = assertThrows(Exception.class, () -> new Lion("Тест", feline));
+        assertEquals("Используйте допустимые значения пола животного - самец или самка", e.getMessage());
     }
 }
